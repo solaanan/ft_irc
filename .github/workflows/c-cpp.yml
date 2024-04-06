@@ -1,0 +1,21 @@
+name: C/C++ CI
+run-name: ${{github.event.pusher.username}}:${{github.sha}}
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Make ft_irc
+      run: make
+    - name: Run ft_irc
+      run: ./ft_irc 1604 password
