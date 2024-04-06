@@ -1,5 +1,5 @@
 name: C/C++ CI
-run-name: ${{github.event.pusher.username}}:${{github.sha}}
+run-name: ${{github.actor}}:${{github.sha}}
 
 on:
   push:
