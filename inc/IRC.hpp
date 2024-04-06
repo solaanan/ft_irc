@@ -6,7 +6,7 @@
 /*   By: slaanani <slaanani@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:48:09 by slaanani          #+#    #+#             */
-/*   Updated: 2024/04/06 21:54:16 by slaanani         ###   ########.fr       */
+/*   Updated: 2024/04/06 22:24:44 by slaanani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <iostream>
 #include <iomanip>
+#include <cstdlib>
 #include "errors.hpp"
 
 #define ES_GREEN "\033[32m"
