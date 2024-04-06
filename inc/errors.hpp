@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <cstdlib>
+#include <sstream>
 
 #define			FILE_OPEN_ERROR							1
 #define			MEMORY_ALLOCATION_ERROR					2
