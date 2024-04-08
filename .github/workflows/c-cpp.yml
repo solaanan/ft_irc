@@ -3,7 +3,7 @@ run-name: ${{github.actor}}:${{github.sha}}
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "solaanan" ]
   pull_request:
     branches: [ "main" ]
 
@@ -19,3 +19,7 @@ jobs:
       run: make
     - name: Run ft_irc
       run: ./ft_irc 1604 password
+    - name: Make hamradroid
+      run: cd bot/ && make
+    - nam: Run hamradroid
+      run: ./hamradroid
