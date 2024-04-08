@@ -22,4 +22,4 @@ jobs:
     - name: Make hamradroid
       run: cd bot/ && make
     - name: Run hamradroid
-      run: ./hamradroid
+      run: cd bot && ./hamradroid
