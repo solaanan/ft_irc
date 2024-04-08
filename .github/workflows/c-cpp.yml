@@ -21,5 +21,5 @@ jobs:
       run: ./ft_irc 1604 password
     - name: Make hamradroid
       run: cd bot/ && make
-    - nam: Run hamradroid
+    - name: Run hamradroid
       run: ./hamradroid
