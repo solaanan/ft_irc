@@ -24,14 +24,14 @@ jobs:
       run: mkdir -p bin  # Create a directory named bin
 
     - name: Move ft_irc binary
-      run: mv ./obj/ft_irc bin/  # Assuming obj folder for build products
+      run: mv ./ft_irc bin/  # Assuming obj folder for build products
 
     - name: Build hamradroid
       working-directory: ./bot  # Build within bot folder
       run: make  # Replace with your build script or compiler command
 
     - name: Move hamradroid binary
-      run: mv ./bot/obj/hamradroid bin/  # Assuming obj folder for build products
+      run: mv ./bot/hamradroid bin/  # Assuming obj folder for build products
 
     - name: Upload binaries artifact
       uses: actions/upload-artifact@v3
