@@ -20,42 +20,38 @@ jobs:
     - name: Build ft_irc
       run: make  # Replace with your build script or compiler command
 
-    - name: Upload ft_irc artifact (excluding Git objects)
-      uses: actions/upload-artifact@v3
-      with:
-        name: ft_irc-artifact
-        path: .  # Upload entire contents of ft_irc folder (excluding Git objects)
-        exclude: '**/*.git/objects/**'  # Exclude Git objects directory
+    - name: Create directory for binaries
+      run: mkdir -p bin  # Create a directory named bin
+
+    - name: Move ft_irc binary
+      run: mv obj/ft_irc bin/  # Assuming obj folder for build products
 
     - name: Build hamradroid
       working-directory: bot/  # Build within bot folder
       run: make  # Replace with your build script or compiler command
 
-    - name: Upload hamradroid artifact
+    - name: Move hamradroid binary
+      run: mv bot/obj/hamradroid bin/  # Assuming obj folder for build products
+
+    - name: Upload binaries artifact
       uses: actions/upload-artifact@v3
       with:
-        name: hamradroid-artifact
-        path: bot/  # Upload entire folder containing the built executable
+        name: binaries-artifact
+        path: ./bin
 
   run:  # Separate job for running executables
     runs-on: ubuntu-latest
     needs: build  # This job depends on the build job
     steps:
     - uses: actions/checkout@v3
-    - name: Download ft_irc artifact
+    - name: Download binaries artifact
       uses: actions/download-artifact@v3
       with:
-        name: ft_irc-artifact
+        name: binaries-artifact
         path: .  # Download to the root directory (ft_irc)
 
     - name: Run ft_irc
-      run: ./ft_irc 1604 password  # Run downloaded executable (already in root)
-
-    - name: Download hamradroid artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: hamradroid-artifact
-        path: bot/  # Download folder to the same path
+      run: ./bin/ft_irc 1604 password  # Run downloaded executable (already in root)
 
     - name: Run hamradroid
-      run: cd bot && ./hamradroid  # Run downloaded executable
+      run: ./bin/hamradroid  # Run downloaded executable
