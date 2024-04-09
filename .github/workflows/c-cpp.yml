@@ -3,9 +3,9 @@ run-name: ${{github.actor}}:${{github.sha}}
 
 on:
   push:
-    branches: [ "main", "solaanan" ]
+    branches: [ "main", "solaanan", "mehdi" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "solaanan", "mehdi" ]
 
 jobs:
   build:
