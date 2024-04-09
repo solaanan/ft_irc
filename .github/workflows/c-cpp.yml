@@ -51,7 +51,7 @@ jobs:
         path: .  # Download to the root directory (ft_irc)
 
     - name: Run ft_irc
-      run: ./bin/ft_irc 1604 password  # Run downloaded executable (already in root)
+      run: ./ft_irc 1604 password  # Run downloaded executable (already in root)
 
     - name: Run hamradroid
-      run: ./bin/hamradroid  # Run downloaded executable
+      run: ./hamradroid  # Run downloaded executable
