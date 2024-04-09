@@ -3,19 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+         #
+#    By: slaanani <slaanani@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/07 01:27:20 by ebelfkih          #+#    #+#              #
-#    Updated: 2024/04/07 01:27:21 by ebelfkih         ###   ########.fr        #
+#    Updated: 2024/04/08 23:37:50 by slaanani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= ft_irc
+NAME			= hamradroid
 
-SRC				= main.cpp						\
-					utils/helpers.cpp			\
-					utils/errors.cpp			\
-					classes/Server.cpp
+SRC				= main.cpp
 
 DIR_SRC		= src/
 

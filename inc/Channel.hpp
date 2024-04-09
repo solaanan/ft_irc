@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.hpp                                         :+:      :+:    :+:   */
+/*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/07 20:16:57 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/07 20:16:58 by ebelfkih         ###   ########.fr       */
+/*   Created: 2024/04/07 20:16:50 by ebelfkih          #+#    #+#             */
+/*   Updated: 2024/04/07 22:48:54 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_HPP
-#define ERRORS_HPP
-
-#include <string>
+#pragma once
 #include <iostream>
-#include <map>
-#include <cstdlib>
-#include <sstream>
 
-#define			FILE_OPEN_ERROR							1
-#define			MEMORY_ALLOCATION_ERROR					2
-#define			INVALID_ARGUMENT_ERROR					3
+class Channel
+{
+private:
+    std::string _ChannelName;
+    
+public:
+    Channel();
+    ~Channel();
+};
 
-std::string		getErrorString(int errorCode);
-void			printErrorAndExit(int errorCode);
-
-
-#endif // ERRORS_HPP

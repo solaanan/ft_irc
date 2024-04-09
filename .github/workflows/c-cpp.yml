@@ -59,4 +59,3 @@ jobs:
     - name: Run hamradroid
       working-directory: ./bot
       run: cd bot && ./hamradroid  # Run downloaded executable
-

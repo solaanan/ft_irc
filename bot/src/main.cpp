@@ -1,13 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Client.cpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slaanani <slaanani@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/07 20:17:14 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/07 20:24:47 by ebelfkih         ###   ########.fr       */
+/*   Created: 2024/04/08 23:34:59 by slaanani          #+#    #+#             */
+/*   Updated: 2024/04/08 23:37:24 by slaanani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/Client.hpp"
+#include <iostream>
+
+int main(void)
+{
+	std::cout << "Hello I am HamraDroid!" << std::endl;
+	return 0;
+}
