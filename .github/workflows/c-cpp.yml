@@ -1,5 +1,5 @@
 name: C/C++ CI
-run-name: ${{github.actor}}:${{github.sha}}
+run-name: ci-${{ github.actor }}-${{ github.event.name }}-${{ github.ref }}-branch-${{ github.sha }}
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ft_irc-artifact
-        path: .  # Upload entire contents of the root directory (ft_irc)
+        path: ./obj/ft_irc  # Upload only the binary executable from the build folder
 
     - name: Build hamradroid
       working-directory: ./bot  # Build within bot folder
@@ -34,7 +34,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: hamradroid-artifact
-        path: ./bot  # Upload entire folder containing the built executable
+        path: ./bot/obj/hamradroid  # Assuming obj folder for build products
 
   run:  # Separate job for running executables
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
         path: .  # Download to the root directory (ft_irc)
 
     - name: Run ft_irc
-      run: ./ft_irc 1604 password  # Run downloaded executable (already in root)
+      run: ./obj/ft_irc 1604 password  # Run downloaded executable from the build folder
 
     - name: Download hamradroid artifact
       uses: actions/download-artifact@v3
@@ -57,5 +57,4 @@ jobs:
         path: ./bot  # Download folder to the same path
 
     - name: Run hamradroid
-      working-directory: ./bot
-      run: cd bot && ./hamradroid  # Run downloaded executable
+      run: ./bot/obj/hamradroid  # Run downloaded executable
