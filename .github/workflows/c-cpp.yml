@@ -54,7 +54,7 @@ jobs:
       run: sudo chmod +x *
 
     - name: Run ft_irc
-      run: ./ft_irc 1604 password  # Run downloaded executable (already in root)
+      run: ./ft_irc 1604 password  # Run downloaded executable
 
     - name: Run hamradroid
       run: ./hamradroid  # Run downloaded executable
