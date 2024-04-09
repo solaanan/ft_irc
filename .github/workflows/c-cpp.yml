@@ -27,14 +27,14 @@ jobs:
         path: .  # Upload entire contents of the root directory (ft_irc)
 
     - name: Build hamradroid
-      working-directory: bot/  # Build within bot folder
+      working-directory: ./bot  # Build within bot folder
       run: make  # Replace with your build script or compiler command
 
     - name: Upload hamradroid artifact
       uses: actions/upload-artifact@v3
       with:
         name: hamradroid-artifact
-        path: bot/  # Upload entire folder containing the built executable
+        path: ./bot  # Upload entire folder containing the built executable
 
   run:  # Separate job for running executables
     runs-on: ubuntu-latest
@@ -54,8 +54,9 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: hamradroid-artifact
-        path: bot/  # Download folder to the same path
+        path: ./bot  # Download folder to the same path
 
     - name: Run hamradroid
+      working-directory: ./bot
       run: cd bot && ./hamradroid  # Run downloaded executable
 
