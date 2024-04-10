@@ -12,7 +12,8 @@
 
 NAME			= hamradroid
 
-SRC				= main.cpp
+SRC				= main.cpp										\
+					Bot.cpp
 
 DIR_SRC		= src/
 
