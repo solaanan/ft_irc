@@ -6,31 +6,39 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:18:23 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/07 23:05:21 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/12 23:37:52 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 #include <map>
-#include "User.hpp"
+#include <netinet/in.h>
 #include "Channel.hpp"
 
-class Client : public User
+class Client
 {
 private:
-    std::map<std::string, Channel> _Channels;
-    bool _Online; // false
+    std::string _userName;
+    std::string _nickName;
+    std::string _IP;
+    std::map<std::string, Channel> _channels;
+    bool _authenticate; // false
+    struct sockaddr_in _clientAddr;
+    int _clientFdSocket;
 public:
     Client();
     Client(Client& obj);
     Client& operator=(Client& obj);
     ~Client();
 
-    bool JoinChannel(std::string ChannelName, std::string PassWord);
-    bool LeaveChannel(std::string ChannelName);
-    void SendMessage(std::string Message, Channel ChannelMessage) const;
-    void SendMessage(std::string Message, std::string Recipient) const;
-    void HandleCommand(std::string Command); // ??
-    void Disconnect();
+    Client(int clientFdSocket, bool authenticate);
+    std::string getNickName();
+    std::string getIP() const;
+    bool joinChannel(std::string ChannelName, std::string PassWord);
+    bool leaveChannel(std::string ChannelName);
+    void sendMessage(std::string Message, Channel ChannelMessage) const;
+    void sendMessage(std::string Message, std::string Recipient) const;
+    void handleCommand(std::string Command); // ??
+    void disconnect();
 };
