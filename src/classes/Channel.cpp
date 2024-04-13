@@ -6,7 +6,7 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:17:09 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/11 01:09:31 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/13 19:46:24 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ Channel& Channel::operator=(const Channel& obj)
     if (this != &obj)
     {
         this->_channelName = obj._channelName;
-        this->_client = obj._client;
+        this->_clients = obj._clients;
         this->_passWord = obj._passWord;
         this->_topic = obj._topic;
     }
@@ -38,15 +38,15 @@ Channel::Channel(const Channel& obj)
 
 Channel::~Channel()
 {
-    this->_client.clear();
+    this->_clients.clear();
 }
 
 /////////////////////////////////////////////////////////////////////////////////
 
 bool Channel::isMember(Client client)
 {
-    std::map<std::string, Client>::iterator it;
-    if (this->_client.find(client.getNickName()) != this->_client.end())
+    std::map<int, Client>::iterator it;
+    if (this->_clients.find(client.getFd()) != this->_clients.end())
         return true;
     return false;
     
@@ -74,4 +74,9 @@ bool Channel::canJoin(Client client)
 {
     
     
+}
+
+void Channel::removeClient(int fdClient)
+{
+    this->_clientss[fdClient]
 }

@@ -6,14 +6,12 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:16:50 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/11 00:43:13 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/13 20:56:05 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include <iostream>
-#include <map>
-#include "Client.hpp"
+#include "IRC.hpp"
 
 
 
@@ -22,8 +20,8 @@ class Channel
 private:
     int _userLimit;
     std::string _channelName;
-    std::map<std::string,  Client> _client;
-    // list Moderator ??
+    std::map<int, Client> _clients;
+    // std::map<int, Client> _operators;
     std::string _passWord;
     std::string _topic;
     std::string _mode;
@@ -39,5 +37,6 @@ public:
     void brodcastMessage(std::string message, Client sender);
     std::string getTopic();
     bool canJoin(Client client);
+    void removeClient(int fdClient);
 };
 

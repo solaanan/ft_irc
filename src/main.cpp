@@ -6,11 +6,11 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:17:55 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/07 20:17:56 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/13 20:57:33 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "IRC.hpp"
+#include "../inc/IRC.hpp"
 
 int main(int argc, char const *argv[])
 {
@@ -29,6 +29,7 @@ int main(int argc, char const *argv[])
 		std::cout << "Port:     " << argv[1] << std::endl;
 		std::cout << "Password: " << argv[2] << std::endl;
 	}
+	
 
 	return 0;
 }

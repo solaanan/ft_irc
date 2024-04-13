@@ -6,7 +6,7 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:17:33 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/12 23:49:47 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/13 20:12:23 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void Server::startServer()
     this->_fds.push_back(tmp);
 }
 
-void Server::handleClientconnection()
+void Server::handleClientConnection()
 {
     while (true)
     {
@@ -115,17 +115,47 @@ void Server::handleClientconnection()
         
         // Check for data on client sockets
         for (size_t i = 1; i < this->_fds.size(); i++){
-            
+            if (this->_fds[i].revents & POLLIN){
+                int bytesReceived;
+                Message msg;
+                while (this->_fds[i].revents & POLLIN)
+                {
+                    char buffer[1024];
+                    bytesReceived = recv(this->_fds[i].fd, buffer, sizeof(buffer), 0);
+                    if (bytesReceived <= 0)
+                    {
+                        if (bytesReceived == 0)
+                        {
+                            std::cout << "Client disconnected" << std::endl;
+                            this->_clients[this->_fds[i].fd].disconnect();
+                            this->_clients[this->_fds[i].fd].~Client();
+                        }
+                        else
+                            std::cerr << "recv() failed" << std::endl;
+                    }
+                    else {
+                        buffer[bytesReceived] = 0;
+                        msg = msg + buffer;
+                    }
+                }
+                this->_clients[i].setMessage(msg);
+                this->handleClientMessage(_clients[i]);
+            }
         }
     }
 }
 
-bool Server::authenticateUser() const
+void Server::handleClientMessage(Client client)
 {
-    
+    // std::cout << client.
 }
 
-Channel Server::createChannel(std::string channelName)
-{
+// bool Server::authenticateUser() const
+// {
     
-}
+// }
+
+// Channel Server::createChannel(std::string channelName)
+// {
+    
+// }

@@ -6,7 +6,7 @@
 #    By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/07 01:27:20 by ebelfkih          #+#    #+#              #
-#    Updated: 2024/04/07 01:27:21 by ebelfkih         ###   ########.fr        #
+#    Updated: 2024/04/13 20:59:30 by ebelfkih         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,10 @@ NAME			= ft_irc
 SRC				= main.cpp						\
 					utils/helpers.cpp			\
 					utils/errors.cpp			\
-					classes/Server.cpp
+					src/classes/Server.cpp			\
+					src/classes/Client.cpp			\
+					src/classes/Message.cpp			\
+					
 
 DIR_SRC		= src/
 

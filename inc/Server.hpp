@@ -6,27 +6,12 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:19:10 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/12 23:38:39 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/13 20:55:48 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include <iostream>
-#include <map>
-#include <cstring>
-#include <cstdlib>
-#include "Client.hpp"
-#include "Channel.hpp"
-#include <cstdio>
-#include <vector>
-#include <cerrno>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <netinet/in.h>
-#include <poll.h>
+#include "IRC.hpp"
 
 
 class Server
@@ -47,8 +32,9 @@ public:
     Server(std::string port, std::string password);
     void startServer();
     bool authenticateUser() const;
+    void handleClientConnection();
+    void handleClientMessage(Client client);
 
-    void handleClientconnection(); // ??
-    Channel createChannel(std::string channelName);
+    // Channel createChannel(std::string channelName);
 };
 
