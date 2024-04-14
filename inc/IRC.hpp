@@ -6,7 +6,7 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:48:09 by slaanani          #+#    #+#             */
-/*   Updated: 2024/04/13 20:55:16 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/14 06:26:21 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
-#include "errors.hpp"
-#include "Channel.hpp"
-#include "Client.hpp"
-#include "Message.hpp"
-#include "Server.hpp"
 #include <map>
 #include <cstring>
 #include <cstdio>
@@ -34,6 +29,11 @@
 #include <poll.h>
 #include <string>
 #include <sstream>
+#include "errors.hpp"
+#include "Message.hpp"
+#include "Channel.hpp"
+#include "Client.hpp"
+#include "Server.hpp"
 
 
 

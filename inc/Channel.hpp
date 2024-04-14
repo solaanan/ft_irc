@@ -6,14 +6,16 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:16:50 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/13 20:56:05 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/14 06:33:02 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include "IRC.hpp"
-
-
+#ifndef CHANNEL_HPP
+#define CHANNEL_HPP
+#include <iostream>
+#include <map>
+#include "Client.hpp"
+class Client;
 
 class Channel
 {
@@ -21,7 +23,7 @@ private:
     int _userLimit;
     std::string _channelName;
     std::map<int, Client> _clients;
-    // std::map<int, Client> _operators;
+    std::map<int, Client> _operators;
     std::string _passWord;
     std::string _topic;
     std::string _mode;
@@ -40,3 +42,4 @@ public:
     void removeClient(int fdClient);
 };
 
+#endif

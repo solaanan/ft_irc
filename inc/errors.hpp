@@ -6,12 +6,13 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:16:57 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/13 20:52:31 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/14 06:28:53 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERRORS_HPP
 #define ERRORS_HPP
+#include "IRC.hpp"
 
 
 

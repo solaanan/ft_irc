@@ -6,7 +6,7 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:17:33 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/13 20:12:23 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/14 09:40:20 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,31 @@ Server::Server()
     this->_port = -1;
 }
 
-Server& Server::operator=(Server& obj)
+Server& Server::operator=(const Server& obj)
 {
-    
+    if (this != &obj)
+    {
+        this->_port = obj._port;
+        this->_passWord = obj._passWord;
+        this->_fds = obj._fds;
+        this->_clients = obj._clients;
+        this->_channels = obj._channels;
+    }
+    return *this;
 }
 
-Server::Server(Server& obj)
+Server::Server(const Server& obj)
 {
-    
+    *this = obj;
 }
 
 Server::~Server()
 {
+    this->_passWord.clear();
+    this->_fds.clear();
+    this->_clients.clear();
+    this->_channels.clear();
+    
     
 }
  
@@ -39,16 +52,13 @@ Server::Server(std::string port, std::string password) : _passWord(password)
 {
     int p;
     char *end;
-    int fdSocket;
-    struct sockaddr_in serverAddr;
-
 
     p = strtod(port.c_str(), &end);
-    if (port.find('.') || !strcmp("", end) || p < 1024 || p > 49151)
-    {
-        std::cerr << "ERROR: bad input" << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    // if (port.find('.') || strcmp("", end) || p < 1024 || p > 49151)
+    // {
+    //     std::cerr << "ERROR: bad input" << std::endl;
+    //     exit(EXIT_FAILURE);
+    // }
     this->_port = htons(p);
     
 }
@@ -70,7 +80,7 @@ void Server::startServer()
     serverAddr.sin_family = AF_INET;
     if (bind(fdSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0)
     {
-        std::cerr << "Error binding socket: " << strerror(errno) << std::endl;
+        std::cerr << "Error binding socket" << std::endl;
         close(fdSocket);
         exit(EXIT_FAILURE);
     }
@@ -86,6 +96,7 @@ void Server::startServer()
     tmp.fd = fdSocket;
     tmp.events = POLLIN;
     this->_fds.push_back(tmp);
+    this->handleClientConnection();
 }
 
 void Server::handleClientConnection()
@@ -108,45 +119,53 @@ void Server::handleClientConnection()
                 tmp.fd = clientFdSocket;
                 tmp.events = POLLIN;
                 this->_fds.push_back(tmp);
-                Client tmp(clientFdSocket, false);
-                this->_clients[clientFdSocket] = tmp; // ?
+                Client Ctmp(clientFdSocket, false);
+                this->_clients[clientFdSocket] = Ctmp; // ?
+                // this->_clients[clientFdSocket]
+                // std::cout << "fd: " << clientFdSocket << std::endl;
+                // std::cout << this->_clients[clientFdSocket].getFd() << std::endl; // ?
             }
         }
         
         // Check for data on client sockets
-        for (size_t i = 1; i < this->_fds.size(); i++){
-            if (this->_fds[i].revents & POLLIN){
-                int bytesReceived;
+        for (size_t i = 1; i < this->_fds.size(); ++i){
+            if (this->_fds[i].revents & POLLIN)
+            {
                 Message msg;
-                while (this->_fds[i].revents & POLLIN)
-                {
+                // while (this->_fds[i].revents & POLLIN)
+                // {
+                    int bytesReceived;
                     char buffer[1024];
                     bytesReceived = recv(this->_fds[i].fd, buffer, sizeof(buffer), 0);
-                    if (bytesReceived <= 0)
+                    if (bytesReceived == 0)
                     {
-                        if (bytesReceived == 0)
-                        {
-                            std::cout << "Client disconnected" << std::endl;
-                            this->_clients[this->_fds[i].fd].disconnect();
-                            this->_clients[this->_fds[i].fd].~Client();
-                        }
-                        else
-                            std::cerr << "recv() failed" << std::endl;
+                        std::cout << "Client disconnected" << std::endl;
+                        // close fd;
+                        this->_clients[this->_fds[i].fd].disconnect();
+                        this->_clients.erase(this->_fds[i].fd);
+                        this->_fds.erase(this->_fds.begin() + i);
+                        break;
                     }
+                    if (bytesReceived < 0)
+                        std::cerr << "recv() failed" << std::endl;
                     else {
                         buffer[bytesReceived] = 0;
                         msg = msg + buffer;
                     }
-                }
-                this->_clients[i].setMessage(msg);
-                this->handleClientMessage(_clients[i]);
+                // }
+                // std::cout << i << std::endl;
+                this->_clients[this->_fds[i].fd].setMessage(msg);
+                this->handleClientMessage(this->_fds[i].fd);
             }
         }
     }
 }
 
-void Server::handleClientMessage(Client client)
+void Server::handleClientMessage(int i)
 {
+    std::cout << this->_clients[i].getFd() << " : " << this->_clients[i].getMessage().getBuffer() << std::endl;
+    // std::cout << client.getFd() << " : " << client.getMessage().getBuffer() << std::endl;
+    
     // std::cout << client.
 }
 

@@ -6,12 +6,13 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 17:46:53 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/13 20:56:21 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/14 06:46:54 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include "IRC.hpp"
+#ifndef MESSAGE_HPP
+#define MESSAGE_HPP
+#include <iostream>
 
 class Message
 {
@@ -26,6 +27,7 @@ public:
 
     Message(std::string buffer, int sender);
     Message& operator+(const std::string& str);
+    std::string getBuffer()const;
 };
 
-
+#endif

@@ -6,13 +6,24 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:19:10 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/13 20:55:48 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/14 09:25:12 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include "IRC.hpp"
+#ifndef SERVER_HPP
+#define SERVER_HPP
 
+#include <iostream>
+#include <vector>
+#include <poll.h>
+#include <map>
+#include <netinet/in.h>
+#include <cstring>
+#include <cstdlib>
+#include <unistd.h>
+#include "Client.hpp"
+#include "Channel.hpp"
+#include "Message.hpp"
 
 class Server
 {
@@ -25,16 +36,17 @@ private:
     
 public:
     Server();
-    Server& operator=(Server& obj);
-    Server(Server& obj);
+    Server& operator=(const Server& obj);
+    Server(const Server& obj);
     ~Server();
 
     Server(std::string port, std::string password);
     void startServer();
-    bool authenticateUser() const;
+    // bool authenticateUser() const;
     void handleClientConnection();
-    void handleClientMessage(Client client);
+    void handleClientMessage(int i);
 
     // Channel createChannel(std::string channelName);
 };
 
+#endif

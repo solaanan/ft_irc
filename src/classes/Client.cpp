@@ -6,7 +6,7 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:17:14 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/13 20:32:28 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/14 09:29:34 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ Client::Client()
     this->_clientFdSocket = -1;
 }
 
-Client::Client(Client& obj)
+Client::Client(const Client& obj)
 {
     *this = obj;
 }
 
-Client& Client::operator=(Client& obj)
+Client& Client::operator=(const Client& obj)
 {
     if (this != &obj)
     {
@@ -56,8 +56,9 @@ Client::~Client()
 
 
 
-Client::Client(int clientFdSocket, bool authenticate) : _clientFdSocket(clientFdSocket), _authenticate(authenticate)
+Client::Client(int clientFdSocket, bool authenticate) : _authenticate(authenticate)
 {
+    this->_clientFdSocket = clientFdSocket;
 }
 
 std::string Client::getNickName() const
@@ -83,7 +84,7 @@ int Client::getFd()const
     
 }
 
-Channel Client::getCurrentChannel()const
+std::string Client::getCurrentChannel()const
 {
     return this->_currentChannel;
 }
@@ -103,4 +104,14 @@ void Client::disconnect()
 void Client::setMessage(Message msg)
 {
     this->_msg = msg;
+}
+
+Message Client::getMessage() const
+{
+    return this->_msg;
+}
+
+void Client::setFD(int fd)
+{
+    this->_clientFdSocket = fd;
 }
