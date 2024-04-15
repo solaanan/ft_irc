@@ -6,7 +6,7 @@
 /*   By: slaanani <slaanani@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 23:30:42 by slaanani          #+#    #+#             */
-/*   Updated: 2024/04/11 01:17:15 by slaanani         ###   ########.fr       */
+/*   Updated: 2024/04/15 10:45:38 by slaanani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <ctime>
 #include <fcntl.h>
 #include <poll.h>
+#include <cstdlib>
 
 class Bot {
 	private:
