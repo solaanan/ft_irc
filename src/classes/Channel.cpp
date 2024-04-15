@@ -6,7 +6,7 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:17:09 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/14 06:38:57 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/15 04:03:18 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 
 Channel::Channel()
 {
+    this->_userLimit = 1;
     this->_channelName = "";
     this->_passWord = "";
     this->_topic = "";
+    this->_mode = "";
 }
 
 Channel& Channel::operator=(const Channel& obj)
 {
     if (this != &obj)
     {
-        this->_operators = obj._operators;
+        this->_userLimit = obj._userLimit;
         this->_channelName = obj._channelName;
-        this->_clients = obj._clients;
         this->_passWord = obj._passWord;
         this->_topic = obj._topic;
+        this->_mode = obj._mode;
+        this->_clients = obj._clients;
+        this->_operators = obj._operators;
+        this->_invitees = obj._invitees;
     }
     return *this;
 }
@@ -40,48 +45,87 @@ Channel::Channel(const Channel& obj)
 Channel::~Channel()
 {
     this->_clients.clear();
+    this->_operators.clear();
+    this->_invitees.clear();
 }
 
 /////////////////////////////////////////////////////////////////////////////////
 
-bool Channel::isMember(Client client)
+std::string Channel::getChannelName() const
 {
-    std::map<int, Client>::iterator it;
-    if (this->_clients.find(client.getFd()) != this->_clients.end())
-        return true;
-    return false;
+    return this->_channelName;
+}
+
+std::string Channel::getpassWord() const
+{
+    return this->_passWord;
+}
+
+std::string Channel::getTopic() const
+{
+    return this->_topic;
+}
+
+std::string Channel::getMode() const
+{
+    return this->_mode;
+}
+
+void Channel::setChannelName(std::string newName, Client setter)
+{
+    (void)newName;
+    (void)setter;
+}
+
+void Channel::setpassWord(std::string newpassWord, Client setter)
+{
+    (void)newpassWord;
+    (void)setter;
     
 }
 
-bool Channel::isModerator(Client client)
+void Channel::setTopic(std::string newTopic, Client setter)
 {
-    if (this->_operators.find(client.getFd()) != this->_operators.end())
-        return true;
-    return false;
+    (void)newTopic;
+    (void)setter;
     
+}
+
+void Channel::setMode(std::string newMode, Client setter)
+{
+    (void)newMode;
+    (void)setter;
+    
+}
+
+void Channel::addClient(Client cli)
+{
+    (void)cli;
+}
+
+void Channel::addOperators(Client ope)
+{
+    (void)ope;
+}
+
+void Channel::addInvited(Client inv)
+{
+    (void)inv;
 }
 
 void Channel::brodcastMessage(std::string message, Client sender)
 {
     (void)message;
     (void)sender;
-    
 }
 
-std::string Channel::getTopic()
+bool Channel::joinChannel(Client cli)
 {
-    return this->_topic;
+    (void)cli;
+    return false;
 }
 
-bool Channel::canJoin(Client client)
+void Channel::removeClient(int fd)
 {
-    (void)client;
-    return false; // for now
-    
-}
-
-void Channel::removeClient(int fdClient)
-{
-    if (this->_clients.find(fdClient) != this->_clients.end())
-        this->_clients.erase(fdClient);
+    (void)fd;
 }

@@ -6,7 +6,7 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:17:33 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/14 09:40:20 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/15 05:37:58 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ Server::~Server()
     this->_fds.clear();
     this->_clients.clear();
     this->_channels.clear();
-    
-    
 }
  
 ///////////////////////////////////////////////////////////////////////////////////
@@ -54,11 +52,11 @@ Server::Server(std::string port, std::string password) : _passWord(password)
     char *end;
 
     p = strtod(port.c_str(), &end);
-    // if (port.find('.') || strcmp("", end) || p < 1024 || p > 49151)
-    // {
-    //     std::cerr << "ERROR: bad input" << std::endl;
-    //     exit(EXIT_FAILURE);
-    // }
+    if (!port.find('.')  || strcmp("", end) || !(1024 < p && p < 49151))
+    {
+        std::cerr << "ERROR: bad input" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     this->_port = htons(p);
     
 }
@@ -87,7 +85,6 @@ void Server::startServer()
     
     if (listen(fdSocket, SOMAXCONN) < 0)
     {
-
         std::cerr << "listen() failed" << std::endl;
         close(fdSocket);
         exit(EXIT_FAILURE);
@@ -120,10 +117,7 @@ void Server::handleClientConnection()
                 tmp.events = POLLIN;
                 this->_fds.push_back(tmp);
                 Client Ctmp(clientFdSocket, false);
-                this->_clients[clientFdSocket] = Ctmp; // ?
-                // this->_clients[clientFdSocket]
-                // std::cout << "fd: " << clientFdSocket << std::endl;
-                // std::cout << this->_clients[clientFdSocket].getFd() << std::endl; // ?
+                this->_clients[clientFdSocket] = Ctmp;
             }
         }
         
@@ -132,15 +126,15 @@ void Server::handleClientConnection()
             if (this->_fds[i].revents & POLLIN)
             {
                 Message msg;
-                // while (this->_fds[i].revents & POLLIN)
+                int bytesReceived = 0;
+                char buffer[1024];
+                // while (bytesReceived == sizeof(buffer))
                 // {
-                    int bytesReceived;
-                    char buffer[1024];
                     bytesReceived = recv(this->_fds[i].fd, buffer, sizeof(buffer), 0);
                     if (bytesReceived == 0)
                     {
                         std::cout << "Client disconnected" << std::endl;
-                        // close fd;
+                        close(this->_fds[i].fd);
                         this->_clients[this->_fds[i].fd].disconnect();
                         this->_clients.erase(this->_fds[i].fd);
                         this->_fds.erase(this->_fds.begin() + i);
@@ -153,7 +147,6 @@ void Server::handleClientConnection()
                         msg = msg + buffer;
                     }
                 // }
-                // std::cout << i << std::endl;
                 this->_clients[this->_fds[i].fd].setMessage(msg);
                 this->handleClientMessage(this->_fds[i].fd);
             }
@@ -163,10 +156,10 @@ void Server::handleClientConnection()
 
 void Server::handleClientMessage(int i)
 {
-    std::cout << this->_clients[i].getFd() << " : " << this->_clients[i].getMessage().getBuffer() << std::endl;
-    // std::cout << client.getFd() << " : " << client.getMessage().getBuffer() << std::endl;
-    
-    // std::cout << client.
+    if (this->_clients[i].getMessage().isReady())
+        std::cout << this->_clients[i].getClientFdSocket() << " : " 
+            << this->_clients[i].getMessage().getBuffer() << std::endl;
+     this->_clients[i].sendMsg("yalah nhabto ntkayfo\n");
 }
 
 // bool Server::authenticateUser() const

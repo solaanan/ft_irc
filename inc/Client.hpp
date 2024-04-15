@@ -6,51 +6,62 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:18:23 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/14 09:28:58 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/15 05:36:36 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
+
 #include <iostream>
 #include <vector>
 #include "Message.hpp"
 #include "Channel.hpp"
+#include <sys/types.h>
+#include <sys/socket.h>
 class Channel;
-
-
 
 class Client
 {
 private:
-    std::string _currentChannel;
-    std::string _userName;
-    std::string _nickName;
-    std::string _IP;
-    std::vector<Channel> _channels;
-    bool _authenticate;
-    int _clientFdSocket;
-    Message _msg;
+    int 					_clientFdSocket;
+    bool					_authenticate;
+    std::string				_currentChannel;
+    std::string				_userName;
+    std::string				_nickName;
+    std::string				_IP;
+    std::vector<Channel>	_channels;
+    Message					_msg;
 public:
     Client();
     Client(const Client& obj);
     Client& operator=(const Client& obj);
     ~Client();
 
+    // param constructor
     Client(int clientFdSocket, bool authenticate);
-    std::string getNickName() const;
+    
+    // getters
+    int getClientFdSocket() const;
+    bool getAuthenticate() const;
+    std::string getCurrentChannel() const;
     std::string getUserName() const;
+    std::string getNickName() const;
     std::string getIP() const;
-    int getFd()const;
-    std::string getCurrentChannel()const;
-    void disconnect();
-    void setMessage(Message msg);
     Message getMessage() const;
-    void setFD(int fd);
-    // bool leaveChannel(std::string ChannelName);
-    // void sendMessage(std::string Message, Channel ChannelMessage) const;
-    // void sendMessage(std::string Message, std::string Recipient) const;
-    // void handleCommand(std::string Command); // ??
+    
+    // setters
+    void setClientFdSocket(int fd);
+    void setAuthenticate(bool au);
+    void setCurrentChannel(std::string channelName);
+    void setUserName(std::string userName);
+    void setNickName(std::string nickName);
+    void setIP(std::string IP);
+    void setMessage(Message msg);
+    
+    // utils
+    void disconnect();
+    void sendMsg(std::string str);
 };
 
 #endif
