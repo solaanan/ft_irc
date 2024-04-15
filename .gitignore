@@ -1,4 +1,4 @@
-/bin/
+**/obj/
 *.d
 *.slo
 *.lo
@@ -19,6 +19,7 @@
 *.out
 *.app
 ft_irc
+bot/hamradroid
 *.json
 /.vscode/
 .nfs*
