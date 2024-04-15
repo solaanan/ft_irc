@@ -57,4 +57,4 @@ jobs:
       run: ./ft_irc 1604 password  # Run downloaded executable
 
     - name: Run hamradroid
-      run: ./hamradroid  # Run downloaded executable
+      run: ./hamradroid localhost 1604  # Run downloaded executable
