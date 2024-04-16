@@ -6,7 +6,7 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 17:46:53 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/15 04:56:01 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/16 05:56:41 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,27 @@ class Message
 private:
     std::string _buffer;
     int         _fdsender;
-    bool        _ready;
+    bool        _isReady;
 public:
     Message();
     Message& operator=(const Message& obj);
     Message(const Message& obj);
     ~Message();
 
+    // getters
+    std::string getBuffer()const;
+    bool getIsReady() const;
+    
+    
+    // setters
+    void setBuffer(std::string str);
+    void setIsReady(bool b);
+    
+
     Message(std::string buffer, int sender);
     Message& operator+(const std::string& str);
-    std::string getBuffer()const;
     void myAppend(Message msg);
-    bool isReady() const;
+    void clearBuffer();
 };
 
 #endif

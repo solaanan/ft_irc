@@ -6,7 +6,7 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:17:14 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/15 05:38:46 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/16 06:51:02 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ std::string Client::getIP() const
     return this->_IP;
 }
 
-Message Client::getMessage() const
+Message& Client::getMessage()
 {
     return this->_msg;
 }

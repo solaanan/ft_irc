@@ -6,7 +6,7 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:17:33 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/15 05:37:58 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/16 06:53:37 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,31 +122,29 @@ void Server::handleClientConnection()
         }
         
         // Check for data on client sockets
-        for (size_t i = 1; i < this->_fds.size(); ++i){
+        for (size_t i = 1; i < this->_fds.size(); i++){
             if (this->_fds[i].revents & POLLIN)
             {
                 Message msg;
                 int bytesReceived = 0;
                 char buffer[1024];
-                // while (bytesReceived == sizeof(buffer))
-                // {
-                    bytesReceived = recv(this->_fds[i].fd, buffer, sizeof(buffer), 0);
-                    if (bytesReceived == 0)
-                    {
-                        std::cout << "Client disconnected" << std::endl;
-                        close(this->_fds[i].fd);
-                        this->_clients[this->_fds[i].fd].disconnect();
-                        this->_clients.erase(this->_fds[i].fd);
-                        this->_fds.erase(this->_fds.begin() + i);
-                        break;
-                    }
-                    if (bytesReceived < 0)
-                        std::cerr << "recv() failed" << std::endl;
-                    else {
-                        buffer[bytesReceived] = 0;
-                        msg = msg + buffer;
-                    }
-                // }
+                memset(buffer, 0, 1024);
+                bytesReceived = recv(this->_fds[i].fd, buffer, sizeof(buffer), 0);
+                if (bytesReceived == 0)
+                {
+                    std::cout << "Client disconnected" << std::endl;
+                    close(this->_fds[i].fd);
+                    this->_clients[this->_fds[i].fd].disconnect();
+                    this->_clients.erase(this->_fds[i].fd);
+                    this->_fds.erase(this->_fds.begin() + i);
+                    break;
+                }
+                if (bytesReceived < 0)
+                    std::cerr << "recv() failed" << std::endl;
+                else {
+                    buffer[bytesReceived] = 0;
+                    msg = msg + buffer;
+                }
                 this->_clients[this->_fds[i].fd].setMessage(msg);
                 this->handleClientMessage(this->_fds[i].fd);
             }
@@ -156,10 +154,12 @@ void Server::handleClientConnection()
 
 void Server::handleClientMessage(int i)
 {
-    if (this->_clients[i].getMessage().isReady())
+    if (this->_clients[i].getMessage().getIsReady())
+    {
         std::cout << this->_clients[i].getClientFdSocket() << " : " 
-            << this->_clients[i].getMessage().getBuffer() << std::endl;
-     this->_clients[i].sendMsg("yalah nhabto ntkayfo\n");
+            << this->_clients[i].getMessage().getBuffer();
+    }
+    this->_clients[i].getMessage().clearBuffer();
 }
 
 // bool Server::authenticateUser() const

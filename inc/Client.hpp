@@ -6,7 +6,7 @@
 /*   By: ebelfkih <ebelfkih@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 20:18:23 by ebelfkih          #+#    #+#             */
-/*   Updated: 2024/04/15 05:36:36 by ebelfkih         ###   ########.fr       */
+/*   Updated: 2024/04/16 06:51:11 by ebelfkih         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ public:
     std::string getUserName() const;
     std::string getNickName() const;
     std::string getIP() const;
-    Message getMessage() const;
+    Message& getMessage();
     
     // setters
     void setClientFdSocket(int fd);
